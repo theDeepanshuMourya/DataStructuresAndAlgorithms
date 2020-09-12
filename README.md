@@ -3,7 +3,7 @@
 # DataStructuresAndAlgorithms
 This is a collection of algorithms and data structures which I've implemented from scratch as well as using inbuilt libraries in Java along with some famous Dynamic Programming Problems.
 
-You can run and edit the algorithms or contribute to them using Gitpod.io, a free online development environment, with a single click.
+You can run and edit the algorithms or contribute to them using [Gitpod.io](https://gitpod.io/), a free online development environment, with a single click.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/theDeepanshuMourya/DataStructuresAndAlgorithms)
 
