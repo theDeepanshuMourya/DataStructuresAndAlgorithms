@@ -57,15 +57,15 @@ You can run and edit the algorithms or contribute to them using [Gitpod.io](http
       - [Depth first search while keeping track of visited Verticies](/src/graphs/CycleDetection/DFSCycleDetection.java)
     - Find shortest path in a Graph from a starting Vertex
       - [Dijkstra's algorithm (non-negative weight graphs)](/src/graphs/ShortestPathAlgorithms/DijkstraAlgorithm.java)
-      - [DAG Shortest Path](/src/graphs/ShortestPathAlgorithms/DAGShortestPath.java)
+      - [DAG Shortest Path](/src/graphs/ShortestPathAlgorithms/DAGShorstestPath.java)
       - [Bellman-Ford algorithm (negative and positive weight graphs)](/src/graphs/ShortestPathAlgorithms/BellmanFordAlgorithm.java)
     - [Topological sort](/src/graphs/Sorting/TopologicalSort.java)
     - Find minimum spanning tree
-      - [Kruskal's (undirected graphs)](/src/graphs/MinimumSpanningTrees/KruskalAlgorithm.java)
-      - [Prim's (undirected graphs)](/src/graphs/MinimumSpanningTrees/PrimsAlgorithm.java)
+      - [Kruskal's (undirected graphs)](/src/graphs/MinimumSpanningTree/KruskalAlgorithm.java)
+      - [Prim's (undirected graphs)](/src/graphs/MinimumSpanningTree/PrimsAlgorithm.java)
     - Find Strongly Connected Components
-      - [Kosaraju's Algorithm](/src/graphs/StronglyConnectedComponents/KosarajuAlgorithm.java)
-      - [Tarjan's Algorithm](/src/graphs/StronglyConnectedComponents/TarjanAlgorithm.java)
+      - [Kosaraju's Algorithm](/src/graphs/StronglyConnectedComponent/KosarajuAlgorithm.java)
+      - [Tarjan's Algorithm](/src/graphs/StronglyConnectedComponent/TarjanAlgorithm.java)
     - Maximum Flow
       - [Ford Fulkerson's Algorithm](/src/graphs/MaximumFlow/FordFulkersonAlgorithm.java)
       - [Minimum s-t cut in Flow Network](/src/graphs/MaximumFlow/MinCut.java)
