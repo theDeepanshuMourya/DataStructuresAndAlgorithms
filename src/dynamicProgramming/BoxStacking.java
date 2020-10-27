@@ -11,7 +11,7 @@
  * Return the max number of boxes that you can put to form the max height
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 import java.util.ArrayList;
 import java.util.Arrays;

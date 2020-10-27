@@ -6,7 +6,7 @@
  * Expected output is all edges of the minimum cut.
  */
 
-package graphs.MaximumFlow;
+package DataStructuresAndAlgorithms.src.graphs.MaximumFlow;
 
 import java.util.LinkedList;
 import java.util.Queue;

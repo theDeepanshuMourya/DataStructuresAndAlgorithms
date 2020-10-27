@@ -1,4 +1,4 @@
-package lists.DoublyLinkedList;
+package DataStructuresAndAlgorithms.src.lists.DoublyLinkedList;
 
 public class EmployeeNode {
 	

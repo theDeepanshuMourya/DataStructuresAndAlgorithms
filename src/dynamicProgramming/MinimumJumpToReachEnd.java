@@ -4,7 +4,7 @@
  * end of the array (starting from the first element). If an element is 0, then cannot move through that element.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 import java.util.Arrays;
 

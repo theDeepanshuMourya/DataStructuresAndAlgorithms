@@ -8,170 +8,155 @@
  * but with min-priority queue it drops down to O(V + ElogV).
 */
 
-package graphs.ShortestPathAlgorithms;
+package DataStructuresAndAlgorithms.src.graphs.ShortestPathAlgorithms;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
 public class DijkstraAlgorithm {
-	public static class Edge {
-		private double weight;
-		private Vertex startVertex;
-		private Vertex targetVertex;
-		
-		public Edge(double weight, Vertex startVertex, Vertex targetVertex) {
+	static class Edge {
+		int source, dest, weight;
+	
+		public Edge(int source, int dest, int weight) {
+			this.source = source;
+			this.dest = dest;
 			this.weight = weight;
-			this.startVertex = startVertex;
-			this.targetVertex = targetVertex;
-		}
-
-		public double getWeight() {
-			return weight;
-		}
-
-		public void setWeight(double weight) {
-			this.weight = weight;
-		}
-
-		public Vertex getStartVertex() {
-			return startVertex;
-		}
-
-		public void setStartVertex(Vertex startVertex) {
-			this.startVertex = startVertex;
-		}
-
-		public Vertex getTargetVertex() {
-			return targetVertex;
-		}
-
-		public void setTargetVertex(Vertex targetVertex) {
-			this.targetVertex = targetVertex;
 		}
 	}
 	
-	public static class Vertex implements Comparable<Vertex> {
-		private String name;
-		private List<Edge> adjacenciesList;
-		private boolean visited;
-		private Vertex predecessor;
-		private double distance = Double.MAX_VALUE;
-		
-		public Vertex(String name) {
-			this.name = name;
-			this.adjacenciesList = new ArrayList<>();
-		}
-		
-		public void addNeighbour(Edge edge) {
-			this.adjacenciesList.add(edge);
-		}
-		
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public List<Edge> getAdjacenciesList() {
-			return adjacenciesList;
-		}
-
-		public void setAdjacenciesList(List<Edge> adjacenciesList) {
-			this.adjacenciesList = adjacenciesList;
-		}
-
-		public boolean isVisited() {
-			return visited;
-		}
-
-		public void setVisited(boolean visited) {
-			this.visited = visited;
-		}
-
-		public Vertex getPredecessor() {
-			return predecessor;
-		}
-
-		public void setPredecessor(Vertex predecessor) {
-			this.predecessor = predecessor;
-		}
-
-		public double getDistance() {
-			return distance;
-		}
-
-		public void setDistance(double distance) {
-			this.distance = distance;
-		}
-
-		@Override
-		public String toString() {
-			return this.name;
-		}
-
-		@Override
-		public int compareTo(Vertex otherVertex) {
-			return Double.compare(distance, otherVertex.getDistance());
+	// Data structure to store heap nodes
+	static class Node {
+		int vertex, weight;
+	
+		public Node(int vertex, int weight) {
+			this.vertex = vertex;
+			this.weight = weight;
 		}
 	}
 	
-	public static class algorithm {
-		public void computePaths(Vertex sourceVertex) {
-			sourceVertex.setDistance(0);
-			PriorityQueue<Vertex> queue = new PriorityQueue<>();
-			queue.add(sourceVertex);
-			
-			while (!queue.isEmpty()) {
-				Vertex actualVertex = queue.poll();
-				
-				for (Edge edge : actualVertex.getAdjacenciesList()) {
-					Vertex v = edge.getTargetVertex();
-					double newDistance = actualVertex.getDistance() + edge.getWeight();
-					
-					if(newDistance < v.getDistance()) {
-						queue.remove(v);
-						v.setDistance(newDistance);
-						v.setPredecessor(actualVertex);
-						queue.add(v);
-					}
+	// class to represent a graph object
+	static class Graph {
+		
+		// A List of Lists to represent an adjacency list
+		List<List<Edge>> adjList = null;
+	
+		// Constructor
+		Graph(List<Edge> edges, int N)
+		{
+			adjList = new ArrayList<>();
+	
+			for (int i = 0; i < N; i++) {
+				adjList.add(new ArrayList<>());
+			}
+	
+			// add edges to the undirected graph
+			for (Edge edge: edges) {
+				adjList.get(edge.source).add(edge);
+			}
+		}
+	}
+
+    private static void getRoute(int[] prev, int i, List<Integer> route) {
+		if (i >= 0) {
+			getRoute(prev, prev[i], route);
+			route.add(i);
+		}
+	}
+
+	// Run Dijkstra's algorithm on given graph
+	public static void shortestPath(Graph graph, int source, int N) {
+		// create min heap and push source node having distance 0
+		PriorityQueue<Node> minHeap;
+		minHeap = new PriorityQueue<>(Comparator.comparingInt(node -> node.weight));
+		minHeap.add(new Node(source, 0));
+
+		// set infinite distance from source to v initially
+		List<Integer> dist = new ArrayList<>(Collections.nCopies(N, Integer.MAX_VALUE));
+
+		// distance from source to itself is zero
+		dist.set(source, 0);
+
+		// boolean array to track vertices for which minimum
+		// cost is already found
+		boolean[] done = new boolean[N];
+		done[source] = true;
+
+		int[] prev = new int[N];
+		prev[source] = -1;
+
+		List<Integer> route = new ArrayList<>();
+
+		while (!minHeap.isEmpty()) {
+			// Remove and return best vertex
+			Node node = minHeap.poll();
+
+			// get vertex number
+			int u = node.vertex;
+
+			// do for each neighbor v of u
+			for (Edge edge: graph.adjList.get(u))
+			{
+				int v = edge.dest;
+				int weight = edge.weight;
+
+				// Relaxation step
+				if (!done[v] && (dist.get(u) + weight) < dist.get(v))
+				{
+					dist.set(v, dist.get(u) + weight);
+					prev[v] = u;
+					minHeap.add(new Node(v, dist.get(v)));
 				}
 			}
+
+			done[u] = true;
 		}
-		
-		public List<Vertex> getShortestPathTo(Vertex targetVertex){
-			List<Vertex> shortestPathToTarget = new ArrayList<>();
-			
-			for(Vertex vertex = targetVertex; vertex != null; vertex = vertex.getPredecessor()) {
-				shortestPathToTarget.add(vertex);
+
+		for (int i = 1; i < N; ++i)
+		{
+			if (i != source && dist.get(i) != Integer.MAX_VALUE) {
+				getRoute(prev, i, route);
+				System.out.printf("Path (%d -> %d): Minimum Cost = %d and Route is %s", source, i, dist.get(i), route);
+                System.out.println();
+				route.clear();
 			}
-			System.out.println("Shortest Distance: "+targetVertex.getDistance());
-			Collections.reverse(shortestPathToTarget);
-			
-			return shortestPathToTarget;
 		}
 	}
-	
-	public static void main(String[] args) {
-		Vertex v1 = new Vertex("A");
-		Vertex v2 = new Vertex("B");
-		Vertex v3 = new Vertex("C");
-		Vertex v4 = new Vertex("D");
-		Vertex v5 = new Vertex("E");
-		
-		v1.addNeighbour(new Edge(1, v1, v2));
-		v1.addNeighbour(new Edge(6, v1, v3));
-		v2.addNeighbour(new Edge(4, v2, v3));
-		v2.addNeighbour(new Edge(3, v2, v4));
-		v3.addNeighbour(new Edge(8, v3, v5));
-		v4.addNeighbour(new Edge(6, v4, v5));
-		
-		algorithm algo = new algorithm();
-		algo.computePaths(v1);
-		
-		System.out.println(algo.getShortestPathTo(v5));
+
+	public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("Enter no. of Vertices: ");
+        int verticeNo = Integer.parseInt(br.readLine());
+
+        System.out.println("Enter no. of Edges: ");
+        int edgeNo = Integer.parseInt(br.readLine());
+
+        // initialize edges as per (u, v, w) space seperated
+		// triplet representing undirected edge from
+		// vertex u to vertex v having weight w
+        System.out.println("Enter the edges as follows.");
+        List<Edge> edges = new ArrayList<>();
+
+        for(int i = 0; i < edgeNo; i++){
+            System.out.println("Enter edge " + i + " :");
+			
+			String e[] = br.readLine().split(" ");
+			int u = Integer.parseInt(e[0]);
+			int v = Integer.parseInt(e[1]);
+			int w = Integer.parseInt(e[2]);
+
+            edges.add(new Edge(u, v, w));
+        }
+
+		// construct graph
+		Graph graph = new Graph(edges, verticeNo);
+
+		int source = 0;
+		shortestPath(graph, source, verticeNo);
 	}
 }

@@ -11,7 +11,7 @@
  * hence it has an asymptotic complexity O(|V| + |E|).
  */
 
-package graphs.StronglyConnectedComponent;
+package DataStructuresAndAlgorithms.src.graphs.StronglyConnectedComponent;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package stacks.LinkedList;
+package DataStructuresAndAlgorithms.src.stacks.LinkedList;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

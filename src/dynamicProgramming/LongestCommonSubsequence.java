@@ -3,7 +3,7 @@
  * Both the strings are of uppercase.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class LongestCommonSubsequence {
 	public static class lcs {

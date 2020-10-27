@@ -5,7 +5,7 @@
  * which can be formed from a given set of pairs.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 import java.util.Arrays;
 

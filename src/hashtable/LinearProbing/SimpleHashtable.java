@@ -1,4 +1,4 @@
-package hashtable.LinearProbing;
+package DataStructuresAndAlgorithms.src.hashtable.LinearProbing;
 
 public class SimpleHashtable {
 	

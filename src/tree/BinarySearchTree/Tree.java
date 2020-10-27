@@ -1,4 +1,4 @@
-package tree.BinarySearchTree;
+package DataStructuresAndAlgorithms.src.tree.BinarySearchTree;
 
 public class Tree {
 	

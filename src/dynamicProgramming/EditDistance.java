@@ -7,7 +7,7 @@
  * All of the above operations are of equal cost.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class EditDistance {
 	public static void main(String[] args) {

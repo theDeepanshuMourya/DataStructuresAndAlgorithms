@@ -17,7 +17,7 @@
  * complexity of O(logN).
  */
 
-package searching;
+package DataStructuresAndAlgorithms.src.searching;
 
 public class BinarySearch {
 	public static void main(String[] args) {

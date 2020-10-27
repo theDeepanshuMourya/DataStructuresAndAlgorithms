@@ -10,93 +10,80 @@
  * The time complexity of the algorithm is O(V+E).
  */
 
-package graphs.Traversal;
+package DataStructuresAndAlgorithms.src.graphs.Traversal;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class BreadthFirstSearch {
-	public static class Vertex {
-		
-		private int data;
-		private boolean visited;
-		private List<Vertex> neighbourList;
-		
-		public Vertex(int data) {
-			this.data = data;
-			this.neighbourList = new ArrayList<>();
-		}
+    static class Traversal {
+        
+        // Method to perform BFS traversal of the graph
+        public ArrayList<Integer> bfsTraversalPath(ArrayList<ArrayList<Integer>> adjList, int vertices) {
+            boolean visited[] = new boolean[vertices];
+            Queue<Integer> queue = new LinkedList<>();
 
-		public int getData() {
-			return data;
-		}
+            ArrayList<Integer> res = new ArrayList<>();
+            queue.add(0);
+            visited[0] = true;
 
-		public void setData(int data) {
-			this.data = data;
-		}
+            while (!queue.isEmpty()) {
+                int vertex = queue.remove();
+                res.add(vertex);
 
-		public boolean isVisited() {
-			return visited;
-		}
+                if (adjList.get(vertex).size() != 0) {
+                    for (int x : adjList.get(vertex)) {
+                        if (!visited[x]) {
+                            queue.add(x);
+                            visited[x] = true;
+                        }
+                    }
+                }
+            }
 
-		public void setVisited(boolean visited) {
-			this.visited = visited;
-		}
+            return res;
+        }
+    }
 
-		public List<Vertex> getNeighbourList() {
-			return neighbourList;
-		}
+    public static void main(String args[]) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		public void setNeighbourList(List<Vertex> neighbourList) {
-			this.neighbourList = neighbourList;
-		}
-		
-		public void addNeighbour(Vertex vertex) {
-			this.neighbourList.add(vertex);
-		}
-		
-		@Override
-		public String toString() {
-			return ""+this.data;
-		}
-	}
-	
-	public static class bfs {
-		public static void search(Vertex root) {
-			Queue<Vertex> queue = new LinkedList<>();
-			
-			root.setVisited(true);
-			queue.add(root);
-			
-			while(!queue.isEmpty()) {
-				Vertex actualVertex = queue.remove();
-				System.out.println(actualVertex + " ");
-				
-				for (Vertex v : actualVertex.getNeighbourList()) {
-					if (!v.isVisited()) {
-						v.setVisited(true);
-						queue.add(v);
-					}
-				}
-			}
-		}
-	}
-	
-	public static void main(String[] args) {		
-		Vertex v1 = new Vertex(1);
-		Vertex v2 = new Vertex(2);
-		Vertex v3 = new Vertex(3);
-		Vertex v4 = new Vertex(4);
-		Vertex v5 = new Vertex(5);
-		
-		v1.addNeighbour(v2);
-		v1.addNeighbour(v4);
-		v2.addNeighbour(v5);
-		v4.addNeighbour(v3);
-		v3.addNeighbour(v1);
-		
-		bfs.search(v1);
-	}
+        // Taking input for no of vertices
+        System.out.println("Enter no. of vertices: ");
+        int vertices = Integer.parseInt(br.readLine());
+
+        // Taking input for no of edges
+        System.out.println("Enter no. of Edges: ");
+        int edges = Integer.parseInt(br.readLine());
+
+        // Creating graph in the form of adjacency list
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>();
+
+        for (int i = 0; i < vertices; i++) {
+            adjList.add(new ArrayList<>());
+        }
+
+        // Taking input for egdes
+        System.out.println("Enter the vertices for edges as follows.");
+        for (int i = 1; i <= edges; i++) {
+            System.out.println("Enter edge " + i + " starting vertex: ");
+            int u = Integer.parseInt(br.readLine());
+
+            System.out.println("Enter edge " + i + " ending vertex: ");
+            int v = Integer.parseInt(br.readLine());
+
+            adjList.get(u).add(v);
+        }
+
+        // Final output path of the traversal
+        ArrayList<Integer> res = new Traversal().bfsTraversalPath(adjList, vertices);
+
+        System.out.print("BFS Traversal path for the above graph is: ");
+        for(int i = 0; i < res.size(); i++){
+            System.out.print(res.get(i) + 1 + " ");
+        }
+    }
 }

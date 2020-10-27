@@ -14,148 +14,73 @@
  * The algorithm has a running time complexity of O(V+E).
  */
 
-package graphs.Traversal;
+package DataStructuresAndAlgorithms.src.graphs.Traversal;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 public class DepthFirstSearch {
-	public static class Vertex {
-		private String name;
-		private boolean visited;
-		private List<Vertex> neighbourList;
+    static class Traversal{
+        // Method to perform DFS traversal of teh graph.
+        public ArrayList<Integer> dfsTraversalPath(ArrayList<ArrayList<Integer>> adjList, int vertices) {
+            boolean visited[] = new boolean[vertices];
+            ArrayList<Integer> ans = new ArrayList<>();
+            dfs(adjList, 0, ans, visited);
 
-		public Vertex(String name) {
-			this.name = name;
-			this.neighbourList = new ArrayList<>();
-		}
+            return ans;
+        }
 
-		public void addNeightbour(Vertex vertex) {
-			this.neighbourList.add(vertex);
-		}
+        public void dfs(ArrayList<ArrayList<Integer>> adjList, int vertex, ArrayList<Integer> ans, boolean[] visited){
+            if(!visited[vertex]){
+                visited[vertex] = true;
+                ans.add(vertex);
+                
+                for(int x: adjList.get(vertex)){
+                    dfs(adjList, x, ans, visited);
+                }
+            }
+            
+            return;
+        }
+    }
 
-		public String getName() {
-			return name;
-		}
+    public static void main(String args[]) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		public void setName(String name) {
-			this.name = name;
-		}
+        // Taking input for no of vertices
+        System.out.println("Enter no. of vertices: ");
+        int vertices = Integer.parseInt(br.readLine());
 
-		public boolean isVisited() {
-			return visited;
-		}
+        // Taking input for no of edges
+        System.out.println("Enter no. of Edges: ");
+        int edges = Integer.parseInt(br.readLine());
 
-		public void setVisited(boolean visited) {
-			this.visited = visited;
-		}
+        // Creating graph in the form of adjacency list
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>();
 
-		public List<Vertex> getNeighbourList() {
-			return neighbourList;
-		}
+        for (int i = 0; i < vertices; i++) {
+            adjList.add(new ArrayList<>());
+        }
 
-		public void setNeighbourList(List<Vertex> neighbourList) {
-			this.neighbourList = neighbourList;
-		}
+        // Taking input for egdes
+        System.out.println("Enter the vertices for edges as follows.");
+        for (int i = 1; i <= edges; i++) {
+            System.out.println("Enter edge " + i + " starting vertex: ");
+            int u = Integer.parseInt(br.readLine());
 
-		@Override
-		public String toString() {
-			return this.name;
-		}
-	}
-	
-	public static class dfs {
-		private static Stack<Vertex> stack;
+            System.out.println("Enter edge " + i + " ending vertex: ");
+            int v = Integer.parseInt(br.readLine());
 
-		public dfs() {
-			stack = new Stack<Vertex>();
-		}
-		
-		public static void searchRecursively(List<Vertex> vertexList) {
-			for (Vertex vertex : vertexList) {
-				if (!vertex.isVisited()) {
-					vertex.setVisited(true);
-					searchWithRecursion(vertex);
-				}
-			}
-		}
+            adjList.get(u).add(v);
+        }
 
-		private static void searchWithRecursion(Vertex vertex) {
-			System.out.print(vertex + " ");
-			
-			for(Vertex v: vertex.getNeighbourList()) {
-				if(!v.isVisited()) {
-					v.setVisited(true);
-					searchWithRecursion(v);
-				}
-			}
-		}
+        // Final output path of the traversal
+        ArrayList<Integer> res = new Traversal().dfsTraversalPath(adjList, vertices);
 
-		public static void search_stack(List<Vertex> vertexList) {
-			for (Vertex vertex : vertexList) {
-				if (!vertex.isVisited()) {
-					vertex.setVisited(true);
-					searchWithStack(vertex);
-				}
-			}
-		}
-
-		private static void searchWithStack(Vertex rootVertex) {
-			stack.push(rootVertex);
-			rootVertex.setVisited(true);
-
-			while (!stack.isEmpty()) {
-				Vertex actualVertex = stack.pop();
-				System.out.print(actualVertex + " ");
-
-				for (Vertex v : actualVertex.getNeighbourList()) {
-					if (!v.isVisited()) {
-						v.setVisited(true);
-						stack.push(v);
-					}
-				}
-			}
-			
-			System.out.println();
-		}
-	}
-	
-	public static void main(String[] args) {
-		Vertex v1 = new Vertex("1");
-		Vertex v2 = new Vertex("2");
-		Vertex v3 = new Vertex("3");
-		Vertex v4 = new Vertex("4");
-		Vertex v5 = new Vertex("5");
-		Vertex v6 = new Vertex("6");
-		Vertex v7 = new Vertex("7");
-		Vertex v8 = new Vertex("8");
-		
-		List<Vertex> list = new ArrayList<>();
-		
-		v1.addNeightbour(v2);
-		v1.addNeightbour(v3);
-		v2.addNeightbour(v4);
-		v2.addNeightbour(v5);
-		v3.addNeightbour(v6);
-		v6.addNeightbour(v8);
-		v5.addNeightbour(v7);
-		
-		list.add(v1);
-		list.add(v2);
-		list.add(v3);
-		list.add(v4);
-		list.add(v5);
-		list.add(v6);
-		list.add(v7);
-		list.add(v8);
-		
-		System.out.println("Searching using Stack -> ");
-		dfs.search_stack(list);
-		
-		System.out.println();
-
-		System.out.println("Searching using Recursion -> ");
-		dfs.searchRecursively(list);
-	}
+        System.out.print("BFS Traversal path for the above graph is: ");
+        for(int i = 0; i < res.size(); i++){
+            System.out.print(res.get(i) + 1 + " ");
+        }
+    }
 }

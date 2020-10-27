@@ -8,7 +8,7 @@
  * vertices of same set.
  */
 
-package graphs.Traversal;
+package DataStructuresAndAlgorithms.src.graphs.Traversal;
 
 import java.util.ArrayList;
 import java.util.HashMap;

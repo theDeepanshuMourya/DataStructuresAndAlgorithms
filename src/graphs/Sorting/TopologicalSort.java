@@ -4,7 +4,7 @@
  * its vertices such that, for every edge uv, u comes before v in the ordering.
  */
 
-package graphs.Sorting;
+package DataStructuresAndAlgorithms.src.graphs.Sorting;
 
 import java.util.ArrayList;
 import java.util.List;

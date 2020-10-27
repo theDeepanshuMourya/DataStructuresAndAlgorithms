@@ -8,7 +8,7 @@
  * pick it (0-1 property).
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 
 public class KnapSack {

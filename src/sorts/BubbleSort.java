@@ -8,7 +8,7 @@
  * iterated for every element.
  */
 
-package sorts;
+package DataStructuresAndAlgorithms.src.sorts;
 
 import java.util.Scanner;
 

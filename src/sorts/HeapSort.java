@@ -9,7 +9,7 @@
  * and overall time complexity of Heap Sort is O(nLogn).
  */
 
-package sorts;
+package DataStructuresAndAlgorithms.src.sorts;
 
 import java.util.Scanner;
 

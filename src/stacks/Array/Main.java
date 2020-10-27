@@ -1,4 +1,4 @@
-package stacks.Array;
+package DataStructuresAndAlgorithms.src.stacks.Array;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package hashtable.JDK;
+package DataStructuresAndAlgorithms.src.hashtable.JDK;
 
 import java.util.HashMap;
 import java.util.Iterator;

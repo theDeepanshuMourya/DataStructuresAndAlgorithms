@@ -1,4 +1,4 @@
-package queue.Circular;
+package DataStructuresAndAlgorithms.src.queue.Circular;
 
 public class Main {
 

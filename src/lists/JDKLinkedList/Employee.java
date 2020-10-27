@@ -1,4 +1,4 @@
-package lists.JDKLinkedList;
+package DataStructuresAndAlgorithms.src.lists.JDKLinkedList;
 
 public class Employee {
 	

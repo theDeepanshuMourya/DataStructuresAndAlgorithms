@@ -11,7 +11,7 @@
  * O(NlogN)
  */
 
-package sorts;
+package DataStructuresAndAlgorithms.src.sorts;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -2,7 +2,7 @@
  * Given an array A of N positive integers. Find the sum of maximum sum increasing subsequence of the given array.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class MaximumSumIncreasingSubsequence {
 	public static class maxSumIS {

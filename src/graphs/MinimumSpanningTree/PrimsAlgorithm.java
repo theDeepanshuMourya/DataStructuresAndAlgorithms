@@ -8,165 +8,101 @@
  * algorithm can be reduced to O(ElogV) with the help of binary heap.
  */
 
-package graphs.MinimumSpanningTree;
+package DataStructuresAndAlgorithms.src.graphs.MinimumSpanningTree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class PrimsAlgorithm {
-	public static class Edge implements Comparable<Edge> {
-		private double weight;
-		private Vertex sourceVertex;
-		private Vertex targetVertex;
-		
-		public Edge(double weight, Vertex sourceVertex, Vertex targetVertex) {
-			this.weight = weight;
-			this.sourceVertex = sourceVertex;
-			this.targetVertex = targetVertex;
-		}
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		public double getWeight() {
-			return weight;
-		}
+        System.out.println("Enter no. of Vertices: ");
+        int verticeNo = Integer.parseInt(br.readLine());
 
-		public void setWeight(double weight) {
-			this.weight = weight;
-		}
+        System.out.println("Enter no. of Edges: ");
+        int edgeNo = Integer.parseInt(br.readLine());
 
-		public Vertex getSourceVertex() {
-			return sourceVertex;
-		}
+        // Constructing graph in the form of adjacency matrix
+        int graph[][] = new int[verticeNo][verticeNo];
+        
+        // initialize edges as per (u, v, w) space seperated
+		// triplet representing undirected edge from
+		// vertex u to vertex v having weight w
+        System.out.println("Enter the edges as follows.");
 
-		public void setSourceVertex(Vertex sourceVertex) {
-			this.sourceVertex = sourceVertex;
-		}
-
-		public Vertex getTargetVertex() {
-			return targetVertex;
-		}
-
-		public void setTargetVertex(Vertex targetVertex) {
-			this.targetVertex = targetVertex;
-		}
-
-		@Override
-		public int compareTo(Edge edge) {
-			return Double.compare(this.weight, edge.getWeight());
-		}	
-	}
-
-	
-	public static class Vertex {
-		private String name;
-		private boolean visited;
-		private Vertex previousVertex;
-		private List<Edge> adjacenciesList;
-		
-		public Vertex(String name) {
-			this.name = name;
-			this.adjacenciesList = new ArrayList<>();
-		}
-		
-		public void addEdge(Edge edge) {
-			this.adjacenciesList.add(edge);
-		}
-		
-		public boolean isVisited() {
-			return visited;
-		}
-
-		public void setVisited(boolean visited) {
-			this.visited = visited;
-		}
-
-		public Vertex getPreviousVertex() {
-			return previousVertex;
-		}
-
-		public void setPreviousVertex(Vertex previousVertex) {
-			this.previousVertex = previousVertex;
-		}
-
-		public List<Edge> getAdjacenciesList() {
-			return adjacenciesList;
-		}
-
-		public void setAdjacenciesList(List<Edge> adjacenciesList) {
-			this.adjacenciesList = adjacenciesList;
-		}
-
-		@Override
-		public String toString() {
-			return this.name;
-		}
-	}
-	
-	public static class Algorithm {
-		private List<Vertex> unvisitedVertices;
-		private List<Edge> spanningTree;
-		private PriorityQueue<Edge> edgeHeap;
-		private double fullCost;
-		
-		public Algorithm(List<Vertex> unvisitedList) {
-			this.spanningTree = new ArrayList<>();
-			this.unvisitedVertices = unvisitedList;
-			this.edgeHeap = new PriorityQueue<>();
-		}
-		
-		public void primsAlgorithm(Vertex vertex) {
-			this.unvisitedVertices.remove(vertex);
+        for(int i = 0; i < edgeNo; i++){
+            System.out.println("Enter edge " + i + " :");
 			
-			while(!unvisitedVertices.isEmpty()) {
-				for (Edge edge : vertex.getAdjacenciesList()) {
-					if(this.unvisitedVertices.contains(edge.getTargetVertex())) {
-						this.edgeHeap.add(edge);
-					}
-				}
-				
-				Edge minEdge = this.edgeHeap.remove();
-				this.spanningTree.add(minEdge);
-				this.fullCost += minEdge.getWeight();
-				
-				vertex = minEdge.getTargetVertex();
-				this.unvisitedVertices.remove(vertex);
-			}
-		}
-		
-		public void showMST() {
-			System.out.println("The Minimum Spanning Tree Cost: " + this.fullCost);
-			
-			for(int i = 0; i < spanningTree.size(); i++) {			
-				if(i == spanningTree.size()-1) {
-					System.out.print(spanningTree.get(i).getSourceVertex() + "" + spanningTree.get(i).getTargetVertex());
-				} else {
-					System.out.print(spanningTree.get(i).getSourceVertex() + "" + spanningTree.get(i).getTargetVertex() + "--");
-				}
-			}
-		}
-	}
-	
-	public static void main(String[] args) {
-		List<Vertex> vertexList = new ArrayList<>();
-		
-		Vertex vertex0 = new Vertex("A");
-		Vertex vertex1 = new Vertex("B");
-		Vertex vertex2 = new Vertex("C");
-		
-		vertexList.add(vertex0);
-		vertexList.add(vertex1);
-		vertexList.add(vertex2);
-		
-		vertex0.addEdge(new Edge(1, vertex0, vertex1));	
-		vertex0.addEdge(new Edge(1, vertex0, vertex2));	
-		vertex1.addEdge(new Edge(10, vertex1, vertex2));
-		
-		vertex1.addEdge(new Edge(1, vertex1, vertex0));	
-		vertex2.addEdge(new Edge(1, vertex2, vertex0));	
-		vertex2.addEdge(new Edge(10, vertex2, vertex1));		
-		
-		Algorithm algorithm = new Algorithm(vertexList);		
-		algorithm.primsAlgorithm(vertex2);
-		algorithm.showMST();
-	}
+			String e[] = br.readLine().split(" ");
+			int u = Integer.parseInt(e[0]);
+			int v = Integer.parseInt(e[1]);
+            int w = Integer.parseInt(e[2]);
+            
+            graph[u][v] = w;
+            graph[v][u] = w;
+        }
+
+        primsGraph(graph, verticeNo);
+    }
+
+    // Function to find the MST using Prims Algorithm
+    public static void primsGraph(int[][] graph, int verticeNo){
+        int inf = Integer.MAX_VALUE;
+
+        // number of edge
+        int edgeNo;
+
+        // create a array to track selected vertex
+        // selected will become true otherwise false
+        boolean[] selected = new boolean[verticeNo];
+
+        // set selected false initially
+        Arrays.fill(selected, false);
+
+        // set number of edge to 0
+        edgeNo = 0;
+
+        // the number of egde in minimum spanning tree will be always 
+        // less than (V -1), where V is number of vertices in graph 
+
+        // choose 0th vertex and make it true
+        selected[0] = true;
+
+        // print for edge and weight
+        System.out.println("Minimum Spanning Tree formed.");
+        System.out.println("Edge : Weight");
+
+        while (edgeNo < verticeNo - 1) {
+            // For every vertex in the set S, find the all adjacent vertices
+            // , calculate the distance from the vertex selected at step 1.
+            // if the vertex is already in the set S, discard it otherwise
+            // choose another vertex nearest to selected vertex at step 1.
+      
+            int min = inf;
+            int x = 0; // row number
+            int y = 0; // col number
+      
+            for (int i = 0; i < verticeNo; i++) {
+                if (selected[i] == true) {
+                    for(int j = 0; j < verticeNo; j++) {
+                        // not in selected and there is an edge
+                        if (!selected[j] && graph[i][j] != 0) {
+                            if (min > graph[i][j]) {
+                                min = graph[i][j];
+                                x = i;
+                                y = j;
+                            }
+                        }
+                    }
+                }
+            }
+
+            System.out.println(x + " - " + y + " :  " + graph[x][y]);
+            selected[y] = true;
+            edgeNo++;
+        }
+    }
 }

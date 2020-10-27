@@ -2,7 +2,7 @@
  * Given a positive integer N, count all possible distinct binary strings of length N such that there are no consecutive 1’s.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class CountBinaryStringWithoutAdjacentOnes {
 	public static class CountStrings {

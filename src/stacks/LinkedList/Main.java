@@ -1,4 +1,4 @@
-package stacks.LinkedList;
+package DataStructuresAndAlgorithms.src.stacks.LinkedList;
 
 public class Main {
 

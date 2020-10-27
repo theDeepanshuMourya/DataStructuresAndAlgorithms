@@ -4,7 +4,7 @@
  * Note: str1 and str2 can have both uppercase and lowercase letters.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class ShortestCommonSupersequence {
 	public static class scs {

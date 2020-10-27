@@ -3,7 +3,7 @@
  * A subsequenceof array is called Bitonic if it is first increasing, then decreasing.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class LongestBitonicSubsequence {
 	public static class biotonicSubsequence {

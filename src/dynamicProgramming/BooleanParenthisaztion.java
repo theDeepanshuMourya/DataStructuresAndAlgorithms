@@ -16,7 +16,7 @@ Count the number of ways we can parenthesize the expression so that the value of
 
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 import java.util.Scanner;
 

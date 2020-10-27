@@ -9,7 +9,7 @@
  * You need to determine the maximum possible amouint of money you can win if you go first.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 import java.util.Arrays;
 

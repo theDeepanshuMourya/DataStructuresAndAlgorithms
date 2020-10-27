@@ -6,7 +6,7 @@
  * Time complexity of the algorithm is O(N^2)
  */
 
-package sorts;
+package DataStructuresAndAlgorithms.src.sorts;
 
 import java.util.Scanner;
 

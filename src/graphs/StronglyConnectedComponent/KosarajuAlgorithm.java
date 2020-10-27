@@ -12,7 +12,7 @@
  * graph also takes O(V+E) time.
 */
 
-package graphs.StronglyConnectedComponent;
+package DataStructuresAndAlgorithms.src.graphs.StronglyConnectedComponent;
 
 import java.util.ArrayList;
 import java.util.List;

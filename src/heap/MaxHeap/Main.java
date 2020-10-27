@@ -1,4 +1,4 @@
-package heap.MaxHeap;
+package DataStructuresAndAlgorithms.src.heap.MaxHeap;
 
 public class Main {
 

@@ -5,7 +5,7 @@
  * long as possible. This subsequence is not necessarily contiguous, or unique.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class LongestIncreasingSubsequence {	
 	public static class LIS_Memoization {

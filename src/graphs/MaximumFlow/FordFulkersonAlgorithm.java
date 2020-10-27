@@ -8,7 +8,7 @@
  * kind of problems are Ford-Fulkerson algorithm and Dinic's Algorithm. They are explained below.
  */
 
-package graphs.MaximumFlow;
+package DataStructuresAndAlgorithms.src.graphs.MaximumFlow;
 
 import java.util.LinkedList;
 import java.util.Queue;

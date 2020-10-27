@@ -1,4 +1,4 @@
-package queue.Circular;
+package DataStructuresAndAlgorithms.src.queue.Circular;
 
 import java.util.NoSuchElementException;
 

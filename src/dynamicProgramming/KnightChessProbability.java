@@ -5,7 +5,7 @@
  * with the condition that it can’t enter the board again once it leaves it.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class KnightChessProbability {
 	public static class KnightProbability {

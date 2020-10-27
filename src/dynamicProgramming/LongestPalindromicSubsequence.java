@@ -2,7 +2,7 @@
  * Given a sequence, find the length of the longest palindromic subsequence in it.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class LongestPalindromicSubsequence {
 	public static class lps {

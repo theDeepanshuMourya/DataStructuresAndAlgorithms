@@ -1,4 +1,4 @@
-package lists.SinglyLinkedList;
+package DataStructuresAndAlgorithms.src.lists.SinglyLinkedList;
 
 public class Employee {
 	

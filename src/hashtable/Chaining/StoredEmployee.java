@@ -1,4 +1,4 @@
-package hashtable.Chaining;
+package DataStructuresAndAlgorithms.src.hashtable.Chaining;
 
 public class StoredEmployee {
 	

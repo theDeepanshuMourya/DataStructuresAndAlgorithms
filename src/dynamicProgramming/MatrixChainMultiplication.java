@@ -5,7 +5,7 @@
  * matrix multiplication is associative i.e. no matter how one parenthesize the product, the result will be the same.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class MatrixChainMultiplication {
 	public static class matrixChain {

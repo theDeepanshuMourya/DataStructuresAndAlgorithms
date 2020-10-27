@@ -19,7 +19,7 @@
  * O(NlogN).
  */
 
-package sorts;
+package DataStructuresAndAlgorithms.src.sorts;
 
 import java.util.Scanner;
 

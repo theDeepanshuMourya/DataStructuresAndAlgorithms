@@ -9,7 +9,7 @@
  * of each of C = { C1, C2, .. , Cm} valued coins. Find the minimum number of coins to make the change.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 import java.util.Arrays;
 

@@ -9,7 +9,7 @@
  * once.
  */
 
-package searching;
+package DataStructuresAndAlgorithms.src.searching;
 
 public class LinearSearch {
 	public static void main(String[] args) {

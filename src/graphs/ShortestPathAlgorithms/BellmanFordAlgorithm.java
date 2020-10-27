@@ -9,191 +9,128 @@
  * high O(V.E), in case E = V^2, O(E^3).
  */
 
-package graphs.ShortestPathAlgorithms;
+package DataStructuresAndAlgorithms.src.graphs.ShortestPathAlgorithms;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class BellmanFordAlgorithm {
-	public static class Edge {
-		private double weight;
-		private Vertex startVertex;
-		private Vertex targetVertex;
-		
-		public Edge(double weight, Vertex startVertex, Vertex targetVertex) {
-			this.weight = weight;
-			this.startVertex = startVertex;
-			this.targetVertex = targetVertex;
-		}
+	// Data structure to store graph edges
+	static class Edge {
+		int source, dest, weight;
 
-		public double getWeight() {
-			return weight;
-		}
-
-		public void setWeight(double weight) {
+		public Edge(int source, int dest, int weight) {
+			this.source = source;
+			this.dest = dest;
 			this.weight = weight;
 		}
-
-		public Vertex getStartVertex() {
-			return startVertex;
-		}
-
-		public void setStartVertex(Vertex startVertex) {
-			this.startVertex = startVertex;
-		}
-
-		public Vertex getTargetVertex() {
-			return targetVertex;
-		}
-
-		public void setTargetVertex(Vertex targetVertex) {
-			this.targetVertex = targetVertex;
-		}
 	}
-	
-	public static class Vertex {
-		private String name;
-		private List<Edge> adjacenciesList;
-		private boolean visited;
-		private Vertex previousVertex;
-		private double distance = Double.MAX_VALUE;
-		
-		public Vertex(String name) {
-			this.name = name;
-			this.adjacenciesList = new ArrayList<>();
-		}
-		
-		public void addNeighbour(Edge edge) {
-			this.adjacenciesList.add(edge);
-		}
-		
-		public String getName() {
-			return name;
-		}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+    static void printPath(int parent[], int vertex)
+	{
+		if (vertex < 0)
+			return;
 
-		public List<Edge> getAdjacenciesList() {
-			return adjacenciesList;
-		}
-
-		public void setAdjacenciesList(List<Edge> adjacenciesList) {
-			this.adjacenciesList = adjacenciesList;
-		}
-
-		public boolean isVisited() {
-			return visited;
-		}
-
-		public void setVisited(boolean visited) {
-			this.visited = visited;
-		}
-
-		public Vertex getPreviousVertex() {
-			return previousVertex;
-		}
-
-		public void setPreviousVertex(Vertex previousVertex) {
-			this.previousVertex = previousVertex;
-		}
-
-		public double getDistance() {
-			return distance;
-		}
-
-		public void setDistance(double distance) {
-			this.distance = distance;
-		}
-
-		@Override
-		public String toString() {
-			return this.name;
-		}
+		printPath(parent, parent[vertex]);
+		System.out.print(vertex + " ");
 	}
-	
-	public static class BellmanFord {
-		private List<Edge> edgeList;
-		private List<Vertex> vertexList;
-		
-		public BellmanFord(List<Edge> edgeList, List<Vertex> vertexList) {
-			this.edgeList = edgeList;
-			this.vertexList = vertexList;
-		}
-		
-		public void bellmanFord(Vertex sourceVertex) {
-			sourceVertex.setDistance(0);
-			
-			for(int i = 0; i < vertexList.size()-1; ++i) {
-				for(Edge edge: edgeList) {
-					Vertex u = edge.getStartVertex();
-					Vertex v = edge.getTargetVertex();
-					
-					if(u.getDistance() == Double.MAX_VALUE) continue;
-					
-					double newDistance = u.getDistance() + edge.getWeight();
-					
-					if(newDistance < v.getDistance()) {
-						v.setDistance(newDistance);
-						v.setPreviousVertex(u);
-					}
-				}
-			}
-			
-			for(Edge edge: edgeList) {
-				if(edge.getStartVertex().getDistance() != Double.MAX_VALUE) {
-					if(hasCycle(edge)) {
-						System.out.println("Negative Cycle Detected.");
-						return;
-					}
+
+	// Function to run Bellman Ford Algorithm from given source
+	public static void bellmanFord(List<Edge> edges, int source, int N) {
+
+		// distance[] and parent[] stores shortest-path
+		// (least cost/path) information
+		int distance[] = new int[N];
+		int parent[] = new int[N];
+
+		// initialize distance[] and parent[]. Initially all
+		// vertices except source vertex have a weight of
+		// infinity and a no parent
+		Arrays.fill(distance, Integer.MAX_VALUE);
+		distance[source] = 0;
+
+		Arrays.fill(parent, -1);
+
+		// Relaxation step (run V -1 times)
+		for (int i = 0; i < N - 1; i++)
+		{
+			for (Edge edge: edges)
+			{
+				// edge from u to v having weight w
+				int u = edge.source;
+				int v = edge.dest;
+				int w = edge.weight;
+
+				// if the distance to the destination v can be
+				// shortened by taking the edge u-> v
+				if (distance[u] + w < distance[v]) {
+					// update distance to the new lower value
+					distance[v] = distance[u] + w;
+
+					// set v's parent as u
+					parent[v] = u;
 				}
 			}
 		}
 
-		private boolean hasCycle(Edge edge) {
-			return edge.getStartVertex().getDistance() + edge.getWeight() < edge.getTargetVertex().getDistance();
+		// run relaxation step once more for Nth time to
+		// check for negative-weight cycles
+		for (Edge edge: edges)
+		{
+			// edge from u to v having weight w
+			int u = edge.source;
+			int v = edge.dest;
+			int w = edge.weight;
+
+			// if the distance to the destination u can be
+			// shortened by taking the edge u-> v
+			if (distance[u] + w < distance[v]) {
+				System.out.println("Negative Weight Cycle Found!!");
+				return;
+			}
 		}
-		
-		public List<Vertex> shortestPathTo(Vertex targetVertex){		
-			List<Vertex> shortestPathToTarget = new ArrayList<>();
-			
-			if(targetVertex.getDistance() == Double.MAX_VALUE) {
-				System.out.println("No Path Detected.");
-			}
-			
-			for(Vertex vertex = targetVertex; vertex != null; vertex = vertex.getPreviousVertex()) {
-				shortestPathToTarget.add(vertex);
-			}
-			
-			Collections.reverse(shortestPathToTarget);
-			
-			return shortestPathToTarget;
+
+		for (int i = 0; i < N; i++)
+		{
+			System.out.print("Path (" + source + " -> " + i + ") : Minimum Cost = "+ distance[i] + " and Route is [");
+			printPath(parent, i);
+			System.out.println("]");
 		}
 	}
-	
-	public static void main(String[] args) {
-		List<Vertex> vertexList = new ArrayList<>();
-		
-		vertexList.add(new Vertex("A"));
-		vertexList.add(new Vertex("B"));
-		vertexList.add(new Vertex("C"));
-		vertexList.add(new Vertex("D"));
-		vertexList.add(new Vertex("E"));
-		
-		List<Edge> edgeList = new ArrayList<>();
-		
-		edgeList.add(new Edge(1, vertexList.get(0), vertexList.get(1)));
-		edgeList.add(new Edge(6, vertexList.get(0), vertexList.get(2)));
-		edgeList.add(new Edge(-4, vertexList.get(1), vertexList.get(2)));
-		edgeList.add(new Edge(3, vertexList.get(1), vertexList.get(3)));
-		edgeList.add(new Edge(-8, vertexList.get(2), vertexList.get(4)));
-		edgeList.add(new Edge(6, vertexList.get(3), vertexList.get(4)));
-		
-		BellmanFord bf = new BellmanFord(edgeList, vertexList);
-		bf.bellmanFord(vertexList.get(0));
-		System.out.println(bf.shortestPathTo(vertexList.get(4)));
-		
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("Enter no. of Vertices: ");
+        int verticeNo = Integer.parseInt(br.readLine());
+
+        System.out.println("Enter no. of Edges: ");
+        int edgeNo = Integer.parseInt(br.readLine());
+
+        // initialize edges as per (u, v, w) space seperated
+		// triplet representing undirected edge from
+		// vertex u to vertex v having weight w
+        System.out.println("Enter the edges as follows.");
+        List<Edge> edges = new ArrayList<>();
+
+        for(int i = 0; i < edgeNo; i++){
+            System.out.println("Enter edge " + i + " :");
+			
+			String e[] = br.readLine().split(" ");
+			int u = Integer.parseInt(e[0]);
+			int v = Integer.parseInt(e[1]);
+			int w = Integer.parseInt(e[2]);
+
+            edges.add(new Edge(u, v, w));
+        }
+
+		// let source be vertex 0
+		int source = 0;
+
+		// run Bellman Ford Algorithm from given source
+		bellmanFord(edges, source, verticeNo);
 	}
 }

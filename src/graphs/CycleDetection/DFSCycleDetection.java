@@ -8,7 +8,7 @@
  * complexity of DFS traversal which is O(V+E).
  */
 
-package graphs.CycleDetection;
+package DataStructuresAndAlgorithms.src.graphs.CycleDetection;
 
 import java.util.ArrayList;
 import java.util.List;

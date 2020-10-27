@@ -15,7 +15,7 @@
 	* ‘*’ – Matches any sequence of characters (including the empty sequence)
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class PatternMatching {
 	public static class RegularExpressionMatching {

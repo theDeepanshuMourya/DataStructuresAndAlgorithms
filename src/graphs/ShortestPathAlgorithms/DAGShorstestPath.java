@@ -1,4 +1,4 @@
-package graphs.ShortestPathAlgorithms;
+package DataStructuresAndAlgorithms.src.graphs.ShortestPathAlgorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;

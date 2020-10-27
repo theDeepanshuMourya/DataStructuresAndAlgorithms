@@ -11,238 +11,156 @@
  * O(ElogE) or O(ElogV)
  */
 
-package graphs.MinimumSpanningTree;
+package DataStructuresAndAlgorithms.src.graphs.MinimumSpanningTree;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class KruskalAlgorithm {
-	public static class Vertex {
-		private String name;
-		private Node node;
-		
-		public Vertex(String name) {
-			this.name = name;
-		}
+    // Class to create edge
+    static class Edge{
+        int u, v, weight;
+        
+        public Edge(int u, int v, int weight){
+            this.u = u;
+            this.v = v;
+            this.weight = weight;
+        }
+        
+        @Override
+        public String toString(){
+            return this.u + " - " + this.v + " : " + this.weight;
+        }
+    }
+    
+    static class UnionFind{
+        private int parents[];
+        private int rank[];
+        
+        // Class constructor
+        public UnionFind(int x){
+            parents = new int[x];
+            rank = new int[x];
+            
+            for(int i = 0; i < x; i++){
+                parents[i] = i;
+                rank[i] = 0;
+            }
+        }
+        
+        // A utility function to find set of an element i 
+        // (uses path compression technique)
+        public int find(int node){
+            if(parents[node] != node){
+                parents[node] = find(parents[node]);
+            }
+            
+            return parents[node];
+        }
+        
+        // A function that does union of two sets of x and y 
+        // (uses union by rank) 
+        public void union(int x, int y){
+            x = find(x);
+            y = find(y);
+            
+            if(rank[x] < rank[y]){
+                parents[x] = y;
+            }else if(rank[x] > rank[y]){
+                parents[y] = x;
+            }else{
+                parents[x] = y;
+                rank[y]++;
+            }
+        }
+    }
+    
+    // Function to find the MST using Kruskal's Algorithm
+    static void spanningTree(int V, int E, ArrayList<ArrayList<Integer>> graph) {
+        // Creating list of edges
+        List<Edge> edges = new ArrayList<>();
+        
+        for(int i = 0; i < V; i++){
+            for(int j = 0; j < V; j++){
+                if(graph.get(i).get(j) != Integer.MAX_VALUE){
+                    edges.add(new Edge(i, j, graph.get(i).get(j)));
+                }
+            }
+        }
+        
+        // Sorting edges according to weights
+        Collections.sort(edges, (x, y) -> x.weight - y.weight);
+        
+        // Index used to pick next edge
+        int e = 0;
+        UnionFind uf = new UnionFind(V);
+        
+        // Resulted graph
+        Edge result[] = new Edge[V];
+        
+        for(Edge next: edges){
+            // Number of edges to be taken is equal to V-1
+            if(e == V-1) break;
+            
+            int x = uf.find(next.u);
+            int y = uf.find(next.v);
+            
+            // If including this edge does't cause cycle, 
+            // include it in result and increment the index  
+            // of result for next edge
+            if(x != y){
+                uf.union(next.u, next.v);
+                result[e++] = next;
+            }
+        }
+        
+        // print for edge and weight
+        System.out.println("Minimum Spanning Tree formed.");
+        System.out.println("Edge : Weight");
 
-		public Node getNode() {
-			return node;
-		}
+        for(int i = 0; i < e; i++){
+            System.out.println(result[i].toString());
+        }
+    }
 
-		public void setNode(Node node) {
-			this.node = node;
-		}
-		
-		@Override
-		public String toString() {
-			return this.name;
-		}
-	}
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	
-	public static class Edge implements Comparable<Edge>{
-		private double weight;
-		private Vertex startVertex;
-		private Vertex targetVertex;
-		
-		public Edge(double weight, Vertex startVertex, Vertex targetVertex) {
-			this.weight = weight;
-			this.startVertex = startVertex;
-			this.targetVertex = targetVertex;
-		}
+        System.out.println("Enter no. of Vertices: ");
+        int verticeNo = Integer.parseInt(br.readLine());
 
-		public double getWeight() {
-			return weight;
-		}
+        System.out.println("Enter no. of Edges: ");
+        int edgeNo = Integer.parseInt(br.readLine());
 
-		public void setWeight(double weight) {
-			this.weight = weight;
-		}
+        // Constructing graph in the form of adjacency matrix
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < verticeNo; i++) {
+            ArrayList<Integer> temp = new ArrayList<>();
+            for (int j = 0; j < verticeNo; j++) temp.add(Integer.MAX_VALUE);
+            graph.add(temp);
+        }
+        
+        // initialize edges as per (u, v, w) space seperated
+		// triplet representing undirected edge from
+		// vertex u to vertex v having weight w
+        System.out.println("Enter the edges as follows.");
 
-		public Vertex getStartVertex() {
-			return startVertex;
-		}
-
-		public void setStartVertex(Vertex startVertex) {
-			this.startVertex = startVertex;
-		}
-
-		public Vertex getTargetVertex() {
-			return targetVertex;
-		}
-
-		public void setTargetVertex(Vertex targetVertex) {
-			this.targetVertex = targetVertex;
-		}
-
-		@Override
-		public int compareTo(Edge edge) {
-			return Double.compare(this.weight, edge.getWeight());
-		}
-	}
-	
-	public static class Node {
-		private int id;
-		private int rank;
-		private Node parent;
-		
-		public Node(int id,int rank, Node parent) {
-			this.rank = rank;
-			this.id = id;
-			this.parent = parent;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
-
-		public int getRank() {
-			return rank;
-		}
-
-		public void setRank(int rank) {
-			this.rank = rank;
-		}
-
-		public Node getParent() {
-			return parent;
-		}
-
-		public void setParent(Node parent) {
-			this.parent = parent;
-		}
-	}
-
-	
-	public static class DisjointSet {
-		private int nodeCount = 0;
-		private int setCount = 0;
-		private List<Node> rootNodes;	// representatives
-		
-		public DisjointSet(List<Vertex> vertexList) {
-			this.rootNodes = new ArrayList<>(vertexList.size());
-			makeSets(vertexList);
-		}
-		
-		public int find(Node n) {
-			Node currentNode = n;
+        for(int i = 0; i < edgeNo; i++){
+            System.out.println("Enter edge " + i + " :");
 			
-			while(currentNode.getParent() != null) {
-				currentNode = currentNode.getParent();
-			}
-			
-			Node rootNode = currentNode;
-			currentNode = n;
-			
-			while(currentNode != rootNode) {
-				Node temp = currentNode.getParent();
-				currentNode.setParent(rootNode);
-				currentNode = temp;
-			}
-			
-			return rootNode.getId();
-		}
-		
-		public void union(Node n1, Node n2) {
-			int index1 = find(n1);
-			int index2 = find(n2);
-			
-			if(index1 == index2) {
-				return;
-			}
-			
-			Node root1 = this.rootNodes.get(index1);
-			Node root2 = this.rootNodes.get(index2);
-			
-			if(root1.getRank() < root2.getRank()) {
-				root1.setParent(root2);
-			} else if(root2.getRank() < root1.getRank()) {
-				root2.setParent(root1);
-			} else {
-				root2.setParent(root1);
-				root1.setRank(root1.getRank() + 1);
-			}
-			
-			setCount--;
-		}
+			String e[] = br.readLine().split(" ");
+			int u = Integer.parseInt(e[0]);
+			int v = Integer.parseInt(e[1]);
+            int w = Integer.parseInt(e[2]);
+            
+            graph.get(u).set(v, w);
+            graph.get(v).set(u, w);
+        }
 
-		private void makeSets(List<Vertex> vertexList) {
-			for (Vertex vertex : vertexList) {
-				makeSet(vertex);
-			}		
-		}
-
-		private void makeSet(Vertex vertex) {
-			Node n = new Node(rootNodes.size(), 0, null);
-			vertex.setNode(n);
-			rootNodes.add(n);
-			setCount++;
-			nodeCount++;
-		}	
-	}
-	
-	public static class algorithm {
-		public void spanningTree(List<Vertex> vertexList, List<Edge> edgeList) {
-			DisjointSet ds = new DisjointSet(vertexList);
-			List<Edge> mst = new ArrayList<>();
-			
-			Collections.sort(edgeList);
-			
-			for(Edge edge: edgeList) {
-				Vertex u = edge.getStartVertex();
-				Vertex v = edge.getTargetVertex();
-				
-				if(ds.find(u.getNode()) != ds.find(v.getNode())) {
-					mst.add(edge);
-					ds.union(u.getNode(), v.getNode());
-				}
-			}
-			
-			System.out.println("Minimum Spanning Tree Found ->");
-			
-			for(int i = 0; i < mst.size(); i++) {			
-				if(i == mst.size()-1) {
-					System.out.print(mst.get(i).getStartVertex() + "" + mst.get(i).getTargetVertex());
-				} else {
-					System.out.print(mst.get(i).getStartVertex() + "" + mst.get(i).getTargetVertex() + "--");
-				}
-			}
-		}
-	}
-	
-	public static void main(String[] args) {
-		List<Vertex> vertexList = new ArrayList<>();
-		vertexList.add(new Vertex("A"));
-		vertexList.add(new Vertex("B"));
-		vertexList.add(new Vertex("C"));
-		vertexList.add(new Vertex("D"));
-		vertexList.add(new Vertex("E"));
-		vertexList.add(new Vertex("F"));
-		vertexList.add(new Vertex("G"));
-		vertexList.add(new Vertex("H"));
-		
-		List<Edge> edgeList = new ArrayList<>();
-		edgeList.add(new Edge(3, vertexList.get(0), vertexList.get(1)));
-		edgeList.add(new Edge(2, vertexList.get(0), vertexList.get(2)));
-		edgeList.add(new Edge(5, vertexList.get(0), vertexList.get(3)));
-		edgeList.add(new Edge(13, vertexList.get(1), vertexList.get(5)));
-		edgeList.add(new Edge(2, vertexList.get(1), vertexList.get(3)));
-		edgeList.add(new Edge(5, vertexList.get(2), vertexList.get(4)));
-		edgeList.add(new Edge(2, vertexList.get(2), vertexList.get(3)));
-		edgeList.add(new Edge(4, vertexList.get(3), vertexList.get(4)));
-		edgeList.add(new Edge(6, vertexList.get(3), vertexList.get(5)));
-		edgeList.add(new Edge(3, vertexList.get(3), vertexList.get(6)));
-		edgeList.add(new Edge(6, vertexList.get(4), vertexList.get(6)));
-		edgeList.add(new Edge(2, vertexList.get(5), vertexList.get(6)));
-		edgeList.add(new Edge(3, vertexList.get(5), vertexList.get(7)));
-		edgeList.add(new Edge(6, vertexList.get(6), vertexList.get(7)));
-		
-		algorithm kruskalAlgorithm = new algorithm();
-		kruskalAlgorithm.spanningTree(vertexList, edgeList);
-	}
+        spanningTree(verticeNo, edgeNo, graph);
+    }
 }

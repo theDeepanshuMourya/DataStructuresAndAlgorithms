@@ -1,4 +1,4 @@
-package heap.JDKPriorityQueue;
+package DataStructuresAndAlgorithms.src.heap.JDKPriorityQueue;
 
 import java.util.PriorityQueue;
 

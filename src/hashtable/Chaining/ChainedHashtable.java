@@ -1,4 +1,4 @@
-package hashtable.Chaining;
+package DataStructuresAndAlgorithms.src.hashtable.Chaining;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

@@ -7,7 +7,7 @@
  * You may assume that all costs are positive integers.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class MinimumPathSum {
 	public static class minPathSum {

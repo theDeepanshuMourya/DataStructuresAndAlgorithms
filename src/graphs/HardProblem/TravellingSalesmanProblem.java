@@ -5,7 +5,7 @@
  * the starting point with the minimum cost.
  */
 
-package graphs.HardProblem;
+package DataStructuresAndAlgorithms.src.graphs.HardProblem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package queue.Array;
+package DataStructuresAndAlgorithms.src.queue.Array;
 
 import java.util.NoSuchElementException;
 

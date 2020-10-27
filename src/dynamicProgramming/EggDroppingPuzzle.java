@@ -10,7 +10,7 @@
 	* If the eggs breaks at a certain floor, it will break at any floor above.
  */
 
-package dynamicProgramming;
+package DataStructuresAndAlgorithms.src.dynamicProgramming;
 
 public class EggDroppingPuzzle {
 	public static class EggDropPuzzle {

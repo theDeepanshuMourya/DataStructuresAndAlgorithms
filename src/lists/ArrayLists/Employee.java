@@ -1,4 +1,4 @@
-package lists.ArrayLists;
+package DataStructuresAndAlgorithms.src.lists.ArrayLists;
 
 public class Employee {
 	
