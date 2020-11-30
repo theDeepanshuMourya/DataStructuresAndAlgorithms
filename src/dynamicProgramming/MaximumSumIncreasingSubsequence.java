@@ -34,7 +34,6 @@ public class MaximumSumIncreasingSubsequence {
 
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int nums[] = new int[]{1, 101, 2, 3, 100, 4, 5};
 		int n = nums.length;
 		

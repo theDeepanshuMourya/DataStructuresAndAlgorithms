@@ -1,3 +1,5 @@
+/* JDK Implementation of HashMap */
+
 package DataStructuresAndAlgorithms.src.hashtable.JDK;
 
 import java.util.HashMap;
@@ -6,31 +8,23 @@ import java.util.Map;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
+		Map<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("Jones", 101);
+		hashMap.put("Doe", 102);
+		hashMap.put("Smith", 103);
+		hashMap.put("Ross", 104);
+		hashMap.put("Wilson", 105);
 		
-		Employee janeJones = new Employee("Jane", "Jones", 123);
-		Employee johnDoe = new Employee("John", "Doe", 456);
-		Employee saraSmith = new Employee("Sara", "Smith", 789);
-		Employee mikeRoss = new Employee("Mike", "Ross", 52);
-		Employee billWilson = new Employee("Bill", "Wilson", 72);
-		Employee billEnd = new Employee("Bill", "End", 894);
-		
-		Map<String, Employee> hashMap = new HashMap<String, Employee>();
-		hashMap.put("Jones", janeJones);
-		hashMap.put("Doe", johnDoe);
-		hashMap.put("Smith", saraSmith);
-		hashMap.put("Ross", mikeRoss);
-		hashMap.put("Wilson", billWilson);
-		
-		Iterator<Employee> iterator = hashMap.values().iterator();
+		Iterator<Integer> iterator = hashMap.values().iterator();
 		while(iterator.hasNext()) {
 			System.out.println(iterator.next());
 		}
 		
 		System.out.println(hashMap.containsKey("Doe"));
-		System.out.println(hashMap.containsValue(billEnd));
+		System.out.println(hashMap.containsValue(106));
 		
-		hashMap.forEach((k,v)-> System.out.println("Key = " + k + ", Employee = " + v));
+		hashMap.forEach((k,v)-> System.out.println("Key = " + k + ", Value = " + v));
 
 	}
 

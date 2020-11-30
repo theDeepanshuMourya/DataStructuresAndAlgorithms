@@ -5,37 +5,28 @@ import java.util.LinkedList;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
+		LinkedList<Integer> list = new LinkedList<>();
+		list.addFirst(1);
+		list.addFirst(2);
+		list.addFirst(3);
+		list.addFirst(4);
 		
-		Employee janeJones = new Employee("Jane", "Jones", 123);
-		Employee johnDoe = new Employee("John", "Doe", 456);
-		Employee marySmith = new Employee("Mary", "Smith", 56);
-		Employee mikeRoss = new Employee("Mike", "Ross", 789);
-		Employee billEnd = new Employee("Bill", "End", 89);
-		
-		LinkedList<Employee> list = new LinkedList<>();
-		list.addFirst(janeJones);
-		list.addFirst(johnDoe);
-		list.addFirst(marySmith);
-		list.addFirst(mikeRoss);
-		
-		Iterator<Employee> iter = list.iterator();
-		System.out.print("HEAD -> ");
+		Iterator<Integer> iter = list.iterator();
 		
 		while(iter.hasNext()) {
 			System.out.print(iter.next());
-			System.out.print(" <=> ");
+			System.out.print(" <-> ");
 		}
 		
 		System.out.println("null");
-		list.add(billEnd);
+		list.add(5);
 		
 		iter = list.iterator();
-		System.out.print("HEAD -> ");
 		
 		while(iter.hasNext()) {
 			System.out.print(iter.next());
-			System.out.print(" <=> ");
+			System.out.print(" <-> ");
 		}
 		
 		System.out.println("null");
@@ -43,11 +34,10 @@ public class Main {
 		list.removeFirst();
 		
 		iter = list.iterator();
-		System.out.print("HEAD -> ");
 		
 		while(iter.hasNext()) {
 			System.out.print(iter.next());
-			System.out.print(" <=> ");
+			System.out.print(" <-> ");
 		}
 		
 		System.out.println("null");
@@ -55,15 +45,12 @@ public class Main {
 		list.removeLast();
 		
 		iter = list.iterator();
-		System.out.print("HEAD -> ");
 		
 		while(iter.hasNext()) {
 			System.out.print(iter.next());
-			System.out.print(" <=> ");
+			System.out.print(" <-> ");
 		}
 		
 		System.out.println("null");
-
 	}
-
 }
