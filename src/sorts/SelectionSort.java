@@ -25,16 +25,16 @@ public class SelectionSort {
 			intArray[i] = sc.nextInt();
 		}
 		
-		for (int lastUnsortedindex = intArray.length-1; lastUnsortedindex > 0; lastUnsortedindex--) {
-			int largest = 0;
-			
-			for (int i = 1; i <= lastUnsortedindex; i++) {
-				if (intArray[i] > intArray[largest]) {
-					largest = i;
+		for(int i = 0; i < n-1; i++){
+			int min = i;
+
+			for(int j = i+1; j < n; j++){
+				if(intArray[j] < intArray[min]){
+					min = j;
 				}
 			}
-			
-			swap(intArray, largest, lastUnsortedindex);
+
+			swap(intArray, i, min);
 		}
 		
 		System.out.println("The Sorted Array is:");

@@ -29,16 +29,16 @@ public class InsertionSort {
 			intArray[i] = sc.nextInt();
 		}
 		
-		for (int firstUnsortedIndex = 1; firstUnsortedIndex < intArray.length; firstUnsortedIndex++) {
-			int newElement = intArray[firstUnsortedIndex];
-			
-			int i;
-			
-			for (i = firstUnsortedIndex; i > 0 && intArray[i-1] > newElement; i--) {
-				intArray[i] = intArray[i-1];
+		for(int i = 1; i < n; i++){
+			int key = intArray[i];
+			int j = i-1;
+
+			while(j >= 0 && intArray[j] > key){
+				intArray[j+1] = intArray[j];
+				j--;
 			}
-			
-			intArray[i] = newElement;
+
+			intArray[j+1] = key;
 		}
 		
 		System.out.println("The Sorted Array is:");

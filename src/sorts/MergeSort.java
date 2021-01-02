@@ -1,4 +1,4 @@
-/*Merge sort is a divide-and-conquer algorithm 
+/* Merge sort is a divide-and-conquer algorithm 
  * based on the idea of breaking down a list into 
  * several sub-lists until each sublist consists 
  * of a single element and merging those sublists 
@@ -21,7 +21,7 @@ public class MergeSort {
 		System.out.println("Enter the no. of elements: ");
 		int n = sc.nextInt();
 		
-		int[] intArray = new int[n];
+        int[] intArray = new int[n];
 		
 		System.out.println("Enter the elements:");
 		
@@ -29,7 +29,7 @@ public class MergeSort {
 			intArray[i] = sc.nextInt();
 		}
 
-        mergeSort(intArray, 0, intArray.length);
+        mergeSort(intArray, 0, n-1);
 
         System.out.println("The Sorted Array is:");
 		
@@ -40,37 +40,40 @@ public class MergeSort {
 		sc.close();
 	}
 
-    // { 20, 35, -15, 7, 55, 1, -22 }
     public static void mergeSort(int[] input, int start, int end) {
-
-        if (end - start < 2) {
-            return;
+        if (start < end) {
+            int mid = (start + end)/2;
+            mergeSort(input, start, mid);
+            mergeSort(input, mid+1, end);
+            merge(input, start, mid, end);
         }
-
-        int mid = (start + end) / 2;
-        mergeSort(input, start, mid);
-        mergeSort(input, mid, end);
-        merge(input, start, mid, end);
     }
 
-    // { 20, 35, -15, 7, 55, 1, -22 }
     public static void merge(int[] input, int start, int mid, int end) {
-
-        if (input[mid - 1] <= input[mid]) {
-            return;
-        }
-
         int i = start;
-        int j = mid;
-        int tempIndex = 0;
+        int j = mid+1;
+        int index = 0;
 
-        int[] temp = new int[end - start];
-        while (i < mid && j < end) {
-            temp[tempIndex++] = input[i] <= input[j] ? input[i++] : input[j++];
+        int temp[] = new int[end - start + 1];
+
+        while(i <= mid && j <= end){
+            if(input[i] < input[j]){
+                temp[index++] = input[i++];
+            }else{
+                temp[index++] = input[j++];
+            }
         }
 
-        System.arraycopy(input, i, input, start + tempIndex, mid - i);
-        System.arraycopy(temp, 0, input, start, tempIndex);
+        while(i <= mid){
+            temp[index++] = input[i++];
+        }
 
+        while(j <= end){
+            temp[index++] = input[j++];
+        }
+
+        for(int k = start; k <= end; k++){
+            input[k] = temp[k - start];
+        }
     }
 }

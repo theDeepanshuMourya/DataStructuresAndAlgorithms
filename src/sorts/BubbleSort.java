@@ -27,10 +27,12 @@ public class BubbleSort {
 			intArray[i] = sc.nextInt();
 		}
 		
-		for (int lastUnsortedIndex = intArray.length-1; lastUnsortedIndex > 0; lastUnsortedIndex--) {
-			for(int i = 0; i < lastUnsortedIndex; i++) {
-				if(intArray[i] > intArray[i+1]) {
-					swap(intArray, i, i+1);
+		for(int i = 0; i < n-1; i++){
+			for(int j = 0; j < n-i-1; j++){
+				if(intArray[j] > intArray[j+1]){
+					int temp = intArray[j];
+					intArray[j] = intArray[j+1];
+					intArray[j+1] = temp;
 				}
 			}
 		}
@@ -42,15 +44,5 @@ public class BubbleSort {
 		}
 		
 		sc.close();
-	}
-	
-	public static void swap(int[] array, int i, int j) {
-		if(i == j) {
-			return;
-		}
-		
-		int temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
 	}
 }
